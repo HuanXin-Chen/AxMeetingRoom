@@ -26,3 +26,25 @@ spring:
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
+
+# ChatGLM SDK Config
+chatglm:
+  sdk:
+    config:
+      # 状态；true = 开启、false 关闭
+      enabled: true
+      # 官网地址
+      api-host: https://open.bigmodel.cn/
+      # 官网申请 https://open.bigmodel.cn/usercenter/apikeys
+      api-secret-key: b763c48b9d32c5ca0d056de4a1e9c967.Sl8l6gZ****
+
+# 线程池配置
+thread:
+  pool:
+    executor:
+      config:
+        core-pool-size: 20
+        max-pool-size: 50
+        keep-alive-time: 5000
+        block-queue-size: 5000
+        policy: CallerRunsPolicy
