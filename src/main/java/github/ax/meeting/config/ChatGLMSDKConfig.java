@@ -3,6 +3,7 @@ package github.ax.meeting.config;
 import github.huanxin.chatgpt.session.OpenAiSession;
 import github.huanxin.chatgpt.session.OpenAiSessionFactory;
 import github.huanxin.chatgpt.session.defaults.DefaultOpenAiSessionFactory;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,7 @@ public class ChatGLMSDKConfig {
         github.huanxin.chatgpt.session.Configuration configuration = new github.huanxin.chatgpt.session.Configuration();
         configuration.setApiHost(properties.getApiHost());
         configuration.setApiSecretKey(properties.getApiSecretKey());
+        configuration.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         // 2. 会话工厂
         OpenAiSessionFactory factory = new DefaultOpenAiSessionFactory(configuration);

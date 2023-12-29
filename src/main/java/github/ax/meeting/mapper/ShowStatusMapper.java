@@ -3,10 +3,11 @@ package github.ax.meeting.mapper;
 import github.ax.meeting.entities.Room;
 import github.ax.meeting.entities.ShowStatus;
 import github.ax.meeting.entities.TempStatus;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+@Mapper
 public interface ShowStatusMapper {
 
     int deleteByPrimaryKey(Integer id);

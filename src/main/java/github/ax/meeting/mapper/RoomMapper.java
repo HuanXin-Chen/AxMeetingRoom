@@ -1,10 +1,11 @@
 package github.ax.meeting.mapper;
 
 import github.ax.meeting.entities.Room;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+@Mapper
 public interface RoomMapper {
 
     int deleteByPrimaryKey(Integer roomId);

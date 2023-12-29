@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department`  (
   `dept_id` int(11) NOT NULL AUTO_INCREMENT,
   `dept_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `dept_phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `dept_phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `dept_no` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `dept_password` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`dept_id`) USING BTREE
@@ -57,10 +57,10 @@ CREATE TABLE `department`  (
 -- ----------------------------
 -- Records of department
 -- ----------------------------
-INSERT INTO `department` VALUES (1, '开发部', '15011144029', '1001', '123456');
-INSERT INTO `department` VALUES (2, '运营部', '15011144029', '1002', '123456');
-INSERT INTO `department` VALUES (3, '竞赛部', '15011144029', '1003', '123456');
-INSERT INTO `department` VALUES (4, '科研部', '15011144029', '1004', '123456');
+INSERT INTO `department` VALUES (1, '开发部', '1056216208@qq.com', '1001', '123456');
+INSERT INTO `department` VALUES (2, '运营部', '1056216208@qq.com', '1002', '123456');
+INSERT INTO `department` VALUES (3, '竞赛部', '1056216208@qq.com', '1003', '123456');
+INSERT INTO `department` VALUES (4, '科研部', '1056216208@qq.com', '1004', '123456');
 
 -- ----------------------------
 -- Table structure for manager

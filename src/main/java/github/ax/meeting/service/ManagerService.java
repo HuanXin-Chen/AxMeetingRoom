@@ -22,7 +22,6 @@ public class ManagerService {
         Manager manager = new Manager();
         manager.setUsername(username);
         manager.setPassword(password);
-
         Manager result = managerMapper.loginMessage(manager);
         if(result!=null){
             String token = TokenUtil.sign(manager);

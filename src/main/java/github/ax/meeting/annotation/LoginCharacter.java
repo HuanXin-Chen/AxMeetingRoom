@@ -1,4 +1,4 @@
-package github.ax.meeting.Annotation;
+package github.ax.meeting.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 //身份识别
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface loginCharacter {
+public @interface LoginCharacter {
     String name() default "admin";
 }

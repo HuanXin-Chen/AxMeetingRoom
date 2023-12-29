@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <property name="pattern"
+              value="%X{traceID}|%date{yyyy-MM-dd HH:mm:ss.SSS}|%level|%logger{36} - %msg%n"/>
+    <property name="charsetEncoding" value="UTF-8"/>
+    <property name="logBasePath" value="logs/AxMeetingRoom/dev"/>
+
+    <!-- 过滤掉无用的日志配置 -->
+    <logger name="springfox.documentation" level="OFF" additivity="false"/>
+    <logger name="github.huanxin.chatgpt" level="OFF" additivity="false"/>
+    <logger name="okhttp3.OkHttpClient" level="OFF" additivity="false"/>
+
+    <!-- 输出一份日志到 console -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="debugLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${logBasePath}${file.separator}debug-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>168</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="infoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${logBasePath}${file.separator}info-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>168</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="warnLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${logBasePath}${file.separator}warn-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>168</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+
+    </appender>
+
+
+    <!-- ERROR 输出到文件 -->
+
+    <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+            <charset>${charsetEncoding}</charset>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${logBasePath}${file.separator}error-%d{yyyy-MM-dd_HH}.%i.log
+            </fileNamePattern>
+            <maxHistory>168</maxHistory>
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="infoLog"/>
+        <appender-ref ref="warnLog"/>
+        <appender-ref ref="errorLog"/>
+        <appender-ref ref="debugLog"/>
+    </root>
+</configuration>

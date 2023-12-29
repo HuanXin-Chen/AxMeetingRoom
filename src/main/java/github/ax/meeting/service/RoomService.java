@@ -2,12 +2,15 @@ package github.ax.meeting.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import github.ax.meeting.entities.Department;
 import github.ax.meeting.entities.Msg;
 import github.ax.meeting.entities.Room;
 import github.ax.meeting.entities.ShowStatus;
 import github.ax.meeting.mapper.MeetingRecordMapper;
 import github.ax.meeting.mapper.RoomMapper;
 import github.ax.meeting.mapper.ShowStatusMapper;
+import github.ax.meeting.util.Const;
+import github.ax.meeting.util.RedissonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +30,20 @@ public class RoomService {
     @Autowired
     private MeetingRecordMapper meetingRecordMapper;
 
+    @Autowired
+    private RedissonService redissonService;
+
     private Room room ;
     private List<Room> rooms;
 
     public Msg getRoom(Map<String,Object> para){
         Integer id = Integer.parseInt((String)para.get("roomId"));
-        Room room = roomMapper.selectByPrimaryKey(id);
+        String key = Const.Redis_ROOM + id;
+        Room room = redissonService.getValue(key);
+        if(room == null){
+            room = roomMapper.selectByPrimaryKey(id);
+            redissonService.setValue(key,room);
+        }
         Map<String ,Object> map = new HashMap<>();
         map.put("result",room);
         return Msg.success().add(map);
@@ -56,6 +67,11 @@ public class RoomService {
 
     public Msg updateRoom(Map<String,Object> para) {
         Integer id = (Integer)para.get("roomId");
+
+        String key = Const.Redis_ROOM+id;
+        Room room = redissonService.getValue(key);
+        if(room!=null) redissonService.deleteValue(key);
+
         String no=null;
         Integer size=null;
         Boolean status = null;
@@ -83,6 +99,11 @@ public class RoomService {
 
     public Msg deleteRoom(Map<String,Object> para) {
         Integer id = (Integer)para.get("roomId");
+
+        String key = Const.Redis_ROOM+id;
+        Room room = redissonService.getValue(key);
+        if(room!=null) redissonService.deleteValue(key);
+
         int num = roomMapper.deleteByPrimaryKey(id);
         showStatusMapper.deleteByPrimaryKey(id);
         meetingRecordMapper.deleteByCondition(id);

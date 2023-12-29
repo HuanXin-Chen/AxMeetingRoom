@@ -1,6 +1,6 @@
 package github.ax.meeting.controller;
 
-import github.ax.meeting.Annotation.loginCharacter;
+import github.ax.meeting.annotation.LoginCharacter;
 import github.ax.meeting.entities.Msg;
 import github.ax.meeting.entities.ShowStatus;
 import github.ax.meeting.service.RoomService;
@@ -26,13 +26,13 @@ public class RoomController {
         return roomService.getRoom(para);
     }
     //分页查询全部会议室（currentPage,pageSize）
-    @loginCharacter
+    @LoginCharacter
     @GetMapping("/rooms")
     public Msg getAllRooms(@RequestParam Map<String,Object> para){
         return roomService.getAll(para);
     }
     //修改会议室信息：带什么改什么
-    @loginCharacter
+    @LoginCharacter
     @PutMapping("/room")
     public Msg update(@RequestBody Map<String,Object> para){
         if(para.containsKey("air")||para.containsKey("projector")){
@@ -53,7 +53,7 @@ public class RoomController {
         }
     }
     //添加会议室  （roomNo,roomSize）
-    @loginCharacter
+    @LoginCharacter
     @PostMapping("/room")
     public Msg add(@RequestBody Map<String,Object> para){
         Msg msg = roomService.duplicateCheck(para);
@@ -62,13 +62,13 @@ public class RoomController {
         return roomService.addRoom(para);
     }
     //通过ID删除会议室  --实现连带删除
-    @loginCharacter
+    @LoginCharacter
     @DeleteMapping("/room")
     public Msg delete(@RequestBody Map<String,Object> para){
         return roomService.deleteRoom(para);
     }
     //分页模糊查询不带id （currentPage,pageSize,....）
-    @loginCharacter
+    @LoginCharacter
     @GetMapping("/roomNo")
     public Msg selectByNo(@RequestParam Map<String,Object> para){
         return roomService.selectByNo(para);

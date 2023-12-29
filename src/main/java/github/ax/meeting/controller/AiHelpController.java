@@ -1,47 +1,44 @@
 package github.ax.meeting.controller;
 
+import github.ax.meeting.annotation.AccessInterceptor;
 import github.ax.meeting.entities.Msg;
-import github.ax.meeting.util.TokenUtil;
-import github.huanxin.chatgpt.model.ChatCompletionRequest;
-import github.huanxin.chatgpt.model.Model;
-import github.huanxin.chatgpt.model.Role;
-import github.huanxin.chatgpt.session.OpenAiSession;
+import github.ax.meeting.service.AiChatService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+@Slf4j
 
 @RestController
 public class AiHelpController {
 
-    @Autowired(required = false)
-    private OpenAiSession openAiSession;
+    @Autowired
+    private AiChatService aiChatService;
 
     @GetMapping("/ai/help")
-    public String history( @RequestHeader Map<String,Object> header) throws InterruptedException, ExecutionException {
-        // 入参；模型、请求信息
-        ChatCompletionRequest request = new ChatCompletionRequest();
-        request.setModel(Model.CHATGLM_LITE); // chatGLM_6b_SSE、chatglm_lite、chatglm_lite_32k、chatglm_std、chatglm_pro
-        request.setPrompt(new ArrayList<ChatCompletionRequest.Prompt>() {
-            private static final long serialVersionUID = -7988151926241837899L;
+    @AccessInterceptor(key = "ipAddress", fallbackMethod = "helpErr", permitsPerSecond = 1.0d, blacklistCount = 10)
+    public Msg help(HttpServletRequest httpServletRequest, @RequestHeader Map<String, Object> header) throws ExecutionException, InterruptedException {
+        CompletableFuture<String> future = aiChatService.completions();
+        String reponse = future.join();
+        log.info("请求结果:{}",reponse);
+        Msg msg = new Msg();
+        msg.setCode(200);
+        msg.setMessage("想好了呢！" + reponse);
+        return msg;
+    }
 
-            {
-                add(ChatCompletionRequest.Prompt.builder()
-                        .role(Role.user.getCode())
-                        .content("1+1=?")
-                        .build());
-            }
-        });
-
-        CompletableFuture<String> future = openAiSession.completions(request);
-        String response = future.get();
-        return response;
+    public Msg helpErr(HttpServletRequest request, @RequestBody Map<String , Object> para) {
+        Msg msg = Msg.fault();
+        msg.setMessage("让我想想哦，请稍等！");
+        return msg;
     }
 }

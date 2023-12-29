@@ -1,0 +1,18 @@
+version: '3'
+services:
+  rocketmq:
+    image: xuchengen/rocketmq:latest
+    container_name: rocketmq
+    hostname: rocketmq
+    restart: always
+    ports:
+      - "7397:7397"
+      - "9876:9876"
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
+    volumes:
+      - ./data:/home/app/data
+      - /etc/localtime:/etc/localtime
+      - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: host

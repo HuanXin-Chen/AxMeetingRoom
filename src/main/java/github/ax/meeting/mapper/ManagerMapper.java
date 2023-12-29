@@ -1,9 +1,10 @@
 package github.ax.meeting.mapper;
 
 import github.ax.meeting.entities.Manager;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
+@Mapper
 public interface ManagerMapper {
 
     int deleteByPrimaryKey(String username);

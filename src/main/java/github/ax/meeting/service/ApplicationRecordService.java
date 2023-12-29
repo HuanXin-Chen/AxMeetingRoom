@@ -2,10 +2,13 @@ package github.ax.meeting.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import github.ax.meeting.entities.ApplicationRecord;
-import github.ax.meeting.entities.Msg;
-import github.ax.meeting.entities.TempStatus;
+import github.ax.meeting.entities.*;
 import github.ax.meeting.mapper.ApplicationRecordMapper;
+import github.ax.meeting.mapper.DepartmentMapper;
+import github.ax.meeting.mapper.RoomMapper;
+import github.ax.meeting.mq.EmailInitListener;
+import github.ax.meeting.mq.EmailSendEvent;
+import github.ax.meeting.mq.EventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,15 @@ public class ApplicationRecordService {
     @Autowired
     private ApplicationRecordMapper applicationRecordMapper;
 
+    @Autowired
+    private DepartmentMapper departmentMapper;
+
+    @Autowired
+    private RoomMapper roomMapper;
+
+    @Autowired
+    private EventPublisher eventPublisher;
+
     //提交申请
     public Msg addApply(Map<String, Object> para, Date applyDate, Integer applySlot) {
         Integer deptId = (Integer) para.get("deptId");
@@ -37,6 +49,20 @@ public class ApplicationRecordService {
         ApplicationRecord applicationRecord = new ApplicationRecord(deptId,roomId,applyTime,applyDate,applySlot,meetingTheme,meetingSize);
         applicationRecord.setAuditStatus(0);
         applicationRecordMapper.insert(applicationRecord);
+
+        Department department = departmentMapper.selectByPrimaryKey(deptId);
+        Room room = roomMapper.selectByPrimaryKey(roomId);
+        String email = department.getDeptPhone();
+        String room_no = room.getRoomNo();
+        String time = applyDate.toString();
+
+        Map<String,Object>  map = new HashMap<>();
+        map.put("email",email);
+        map.put("room_no",room_no);
+        map.put("time",time);
+
+        eventPublisher.publish("chx-mq-init", EmailSendEvent.create(map));
+
         return Msg.success();
     }
 
@@ -85,6 +111,25 @@ public class ApplicationRecordService {
         applicationRecord.setAuditStatus(auditStatus);
         applicationRecord.setAuditTime(auditTime);
         int size = applicationRecordMapper.updateByPrimaryKey(applicationRecord);
+
+        ApplicationRecord applicationRecordEmail = applicationRecordMapper.selectByPrimaryKey(id);
+        Department department = departmentMapper.selectByPrimaryKey(applicationRecordEmail.getDeptId());
+        Room room = roomMapper.selectByPrimaryKey(applicationRecordEmail.getRoomId());
+        String email = department.getDeptPhone();
+        String room_no = room.getRoomNo();
+        String time = applicationRecordEmail.getApplyTime().toString();
+        String reasonTo = reason;
+        String status = auditStatus.toString();
+
+        Map<String,Object>  map = new HashMap<>();
+        map.put("email",email);
+        map.put("room_no",room_no);
+        map.put("time",time);
+        map.put("reason",reasonTo);
+        map.put("status",status);
+
+        eventPublisher.publish("chx-mq-end", EmailSendEvent.create(map));
+
         return size>0?Msg.success():Msg.fault();
     }
 

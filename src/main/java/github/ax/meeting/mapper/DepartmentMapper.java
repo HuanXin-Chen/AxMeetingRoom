@@ -1,10 +1,11 @@
 package github.ax.meeting.mapper;
 
 import github.ax.meeting.entities.Department;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface DepartmentMapper {
 
     int deleteByPrimaryKey(Integer deptId);

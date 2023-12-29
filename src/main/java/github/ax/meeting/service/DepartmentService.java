@@ -7,6 +7,8 @@ import github.ax.meeting.entities.Msg;
 import github.ax.meeting.mapper.ApplicationRecordMapper;
 import github.ax.meeting.mapper.DepartmentMapper;
 import github.ax.meeting.mapper.MeetingRecordMapper;
+import github.ax.meeting.util.Const;
+import github.ax.meeting.util.RedissonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +29,18 @@ public class DepartmentService {
     @Autowired
     private ApplicationRecordMapper applicationRecordMapper;
 
+    @Autowired
+    private RedissonService redissonService;
+
 
     public Msg getDept(Map<String,Object> para) {
         Integer id = Integer.parseInt((String)para.get("deptId")) ;
-        Department department = departmentMapper.selectByPrimaryKey(id);
+        String key = Const.Redis_DEPT + id;
+        Department department = redissonService.getValue(key);
+        if(department == null){
+            department = departmentMapper.selectByPrimaryKey(id);
+            redissonService.setValue(key,department);
+        }
         Map<String ,Object> map = new HashMap<>();
         map.put("result",department);
         return department!=null?Msg.success().add(map):Msg.fault();
@@ -55,6 +65,11 @@ public class DepartmentService {
 
     public Msg update(Map<String,Object> para) {
         Integer id = (Integer)para.get("deptId");
+
+        String key = Const.Redis_DEPT+id;
+        Department department = redissonService.getValue(key);
+        if(department!=null) redissonService.deleteValue(key);
+
         String deptName = null;
         String deptPhone = null;
         String deptNo = null;
@@ -67,7 +82,7 @@ public class DepartmentService {
             deptNo = (String)para.get("deptNo");
         if(para.containsKey("deptPassword"))
             deptPassword = (String)para.get("deptPassword");
-        Department department = new Department(deptName,deptPhone,deptNo,deptPassword);
+        department = new Department(deptName,deptPhone,deptNo,deptPassword);
         department.setDeptId(id);
         int num = departmentMapper.updateByPrimaryKey(department);
         return num>0?Msg.success():Msg.fault();
@@ -85,6 +100,11 @@ public class DepartmentService {
 
     public Msg deleteById(@RequestBody Map<String,Object> para) {
         Integer id = (Integer)para.get("deptId");
+
+        String key = Const.Redis_DEPT+id;
+        Department department = redissonService.getValue(key);
+        if(department!=null) redissonService.deleteValue(key);
+
         int num = departmentMapper.deleteByPrimaryKey(id);
         applicationRecordMapper.deleteByDeptId(id);
         meetingRecordMapper.deleteByDeptId(id);

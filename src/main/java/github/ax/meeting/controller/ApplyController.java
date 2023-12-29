@@ -1,6 +1,6 @@
 package github.ax.meeting.controller;
 
-import github.ax.meeting.Annotation.loginCharacter;
+import github.ax.meeting.annotation.LoginCharacter;
 import github.ax.meeting.entities.ApplicationRecord;
 import github.ax.meeting.entities.Msg;
 import github.ax.meeting.entities.Room;
@@ -37,7 +37,7 @@ public class ApplyController {
     //查询时会覆盖
     private Date applyDate;
     private Integer  applySlot;
-    @loginCharacter(name = "user")
+    @LoginCharacter(name = "user")
     @GetMapping("/apply/free")   //pageSize currentPage  applyDate
     //查出该日期所有会议室日期的信息
     public Msg selectFreeByTime(@RequestParam Map<String ,Object> para) throws ParseException {
@@ -65,22 +65,22 @@ public class ApplyController {
     }
 
     //申请会议室
-    @loginCharacter(name = "user")
+    @LoginCharacter(name = "user")
     @PostMapping("/apply")
     public Msg applyRoom(@RequestBody Map<String ,Object>para ,@RequestHeader Map<String,Object> header) throws ParseException {
         String token = (String) header.get("authorization");
         String deptNo = TokenUtil.getNo(token);
-        int deptId = departmentService.seletByNo(deptNo);
         String time = (String) para.get("applyDate");
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
         applyDate = ft.parse(time);
         applySlot = (Integer) para.get("applySlot");
+        int deptId = departmentService.seletByNo(deptNo);
         para.put("deptId",deptId);
         return applicationRecordService.addApply(para,applyDate,applySlot);
     }
 
     //部门取消申请（不分状态）  application_id
-    @loginCharacter(name = "user")
+    @LoginCharacter(name = "user")
     @DeleteMapping("/apply/revoke")
     public Msg deleteApply(@RequestBody Map<String,Object> para){
         Integer id = (Integer) para.get("applicationId");

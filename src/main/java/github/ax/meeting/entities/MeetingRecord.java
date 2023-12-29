@@ -131,4 +131,20 @@ public class MeetingRecord {
         this.meetingDate = meetingDate;
         this.meetingSlot = meetingSlot;
     }
+
+    @Override
+    public String toString() {
+        return "MeetingRecord{" +
+                "recordId=" + recordId +
+                ", meetingTheme='" + meetingTheme + '\'' +
+                ", meetingSize=" + meetingSize +
+                ", deptId=" + deptId +
+                ", roomId=" + roomId +
+                ", meetingDate=" + meetingDate.toString() +
+                ", meetingSlot=" + meetingSlot +
+                ", applyId=" + applyId +
+                ", deptName='" + deptName + '\'' +
+                ", roomNo='" + roomNo + '\'' +
+                '}';
+    }
 }

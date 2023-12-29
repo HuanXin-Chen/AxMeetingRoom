@@ -1,6 +1,6 @@
 package github.ax.meeting.controller;
 
-import github.ax.meeting.Annotation.loginCharacter;
+import github.ax.meeting.annotation.LoginCharacter;
 import github.ax.meeting.entities.ApplicationRecord;
 import github.ax.meeting.entities.MeetingRecord;
 import github.ax.meeting.entities.Msg;
@@ -41,7 +41,7 @@ public class ApplicationRecordController {
 
 
     //同意申请，审批通过
-    @loginCharacter
+    @LoginCharacter
     @PutMapping("/apply/accept")
     public Msg accept(@RequestBody Map<String,Object> para){
         Integer id = (Integer) para.get("applicationId");
@@ -59,7 +59,7 @@ public class ApplicationRecordController {
     }
 
     //拒绝申请
-    @loginCharacter
+    @LoginCharacter
     @PutMapping("/apply/reject")
     public Msg reject(@RequestBody Map<String,Object> para){
         Integer id = (Integer) para.get("applicationId");
