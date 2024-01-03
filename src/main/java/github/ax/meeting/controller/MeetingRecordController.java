@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+// 会议Api接口
 @RestController
 public class MeetingRecordController {
 

@@ -8,12 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
-/**
- * @description:
- * @author：H_X
- * @date: 2023-12-29
- * @Copyright： 公众号：阿新的杂记
- */
+// 消息监听
 @Component
 @Slf4j
 public class EventPublisher {

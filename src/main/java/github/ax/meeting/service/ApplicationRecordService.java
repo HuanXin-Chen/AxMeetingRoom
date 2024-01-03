@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 审核层服务
 @Service
 public class ApplicationRecordService {
 

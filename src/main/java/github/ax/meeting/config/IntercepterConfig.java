@@ -10,6 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.ArrayList;
 import java.util.List;
 
+//Token拦截配置
+
 @Configuration
 public class IntercepterConfig implements WebMvcConfigurer {
     private TokenInterceptor tokenInterceptor;

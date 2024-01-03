@@ -2,6 +2,7 @@ package github.ax.meeting.entities;
 
 import java.util.Date;
 
+//申请实体
 public class ApplicationRecord {
 
     private Integer applicationId;

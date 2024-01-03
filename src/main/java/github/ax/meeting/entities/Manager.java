@@ -1,5 +1,6 @@
 package github.ax.meeting.entities;
 
+//管理实体
 public class Manager {
 
     private String username;

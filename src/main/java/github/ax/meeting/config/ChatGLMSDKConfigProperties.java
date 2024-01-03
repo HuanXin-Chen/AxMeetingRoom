@@ -2,7 +2,7 @@ package github.ax.meeting.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-
+// AI模型配置属性
 @ConfigurationProperties(prefix = "chatglm.sdk.config", ignoreInvalidFields = true)
 public class ChatGLMSDKConfigProperties {
 

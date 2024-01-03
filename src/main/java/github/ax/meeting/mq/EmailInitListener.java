@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+// 预约通知消费
 @Component
 @Slf4j
 @RocketMQMessageListener(topic = "chx-mq-init", consumerGroup = "chx-groupA")

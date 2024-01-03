@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+// 管理Api接口
 @RestController
 public class ManagerController {
     @Autowired

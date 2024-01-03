@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+// 会议室Api接口
 @RestController
 public class RoomController {
 

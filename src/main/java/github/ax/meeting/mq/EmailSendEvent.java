@@ -6,7 +6,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.Date;
 import java.util.Map;
 
-
+// 消息发送者
 public class EmailSendEvent extends BaseEvent<Map<String,Object>>{
 
     public static EmailSendEvent create(Map<String,Object> message) {

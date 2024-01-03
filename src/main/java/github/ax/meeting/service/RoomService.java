@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 会议层服务
 @Service
 public class RoomService {
 

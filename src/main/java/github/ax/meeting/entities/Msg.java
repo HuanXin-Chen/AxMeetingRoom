@@ -2,6 +2,7 @@ package github.ax.meeting.entities;
 
 import java.util.Map;
 
+//消息实体
 public class Msg {
     private int code;
     private String message;

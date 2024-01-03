@@ -18,12 +18,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @description:
- * @author：H_X
- * @date: 2023-12-29
- * @Copyright： 公众号：阿新的杂记
- */
+// 请求日志拦截器
 @Slf4j
 @Component
 public class RequestLogInterceptor extends OncePerRequestFilter {

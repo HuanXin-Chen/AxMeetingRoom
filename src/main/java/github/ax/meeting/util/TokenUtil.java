@@ -9,6 +9,7 @@ import github.ax.meeting.entities.Manager;
 
 import java.util.Date;
 
+// token工具
 public class TokenUtil {
 
     private static final long EXPIRE_TIME= 60*60*1000;

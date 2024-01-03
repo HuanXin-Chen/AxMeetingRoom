@@ -22,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+// Ai基础服务
+
 
 @Slf4j
 @Service

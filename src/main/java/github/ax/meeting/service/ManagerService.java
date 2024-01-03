@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+//管理层服务
 @Service
 public class ManagerService {
 

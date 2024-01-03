@@ -4,6 +4,8 @@ package github.ax.meeting.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+//线程池属性
+
 @Data
 @ConfigurationProperties(prefix = "thread.pool.executor.config", ignoreInvalidFields = true)
 public class ThreadPoolConfigProperties {

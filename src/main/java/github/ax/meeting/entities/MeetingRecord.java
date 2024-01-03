@@ -2,6 +2,7 @@ package github.ax.meeting.entities;
 
 import java.util.Date;
 
+//记录实体
 public class MeetingRecord {
 
     private Integer recordId;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+// 记录Api接口
 @RestController
 public class ApplicationRecordController {
 

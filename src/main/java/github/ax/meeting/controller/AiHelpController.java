@@ -16,8 +16,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-@Slf4j
+// 机器人Api接口
 
+@Slf4j
 @RestController
 public class AiHelpController {
 

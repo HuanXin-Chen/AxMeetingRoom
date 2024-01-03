@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.concurrent.*;
 
+// 线程池配置
 @Slf4j
 @EnableAsync
 @Configuration

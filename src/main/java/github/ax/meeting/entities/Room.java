@@ -1,5 +1,6 @@
 package github.ax.meeting.entities;
 
+//会议室实体
 public class Room {
 
     private Integer roomId;

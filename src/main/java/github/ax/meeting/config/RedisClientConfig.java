@@ -12,6 +12,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+// redis客户端配置
+
 @Configuration
 @EnableConfigurationProperties(RedisClientConfigProperties.class)
 public class RedisClientConfig {

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
+// Token拦截器
 @Slf4j
 @Component
 public class TokenInterceptor implements HandlerInterceptor {

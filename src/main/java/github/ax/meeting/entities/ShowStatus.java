@@ -1,5 +1,6 @@
 package github.ax.meeting.entities;
 
+//状态实体
 public class ShowStatus {
 
     private Integer roomId;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+//状态层服务
 @Service
 public class ShowStatusService {
 

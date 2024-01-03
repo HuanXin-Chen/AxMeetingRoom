@@ -3,7 +3,7 @@ package github.ax.meeting.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-
+//Redis配置属性
 @Data
 @ConfigurationProperties(prefix = "redis.sdk.config", ignoreInvalidFields = true)
 public class RedisClientConfigProperties {

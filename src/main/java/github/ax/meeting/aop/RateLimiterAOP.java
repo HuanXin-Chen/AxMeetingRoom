@@ -23,6 +23,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
+/**
+ *   限流拦截器
+ */
 @Slf4j
 @Aspect
 public class RateLimiterAOP {

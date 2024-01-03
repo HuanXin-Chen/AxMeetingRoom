@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.time.Duration;
 
+// redisson服务
 @Service("redissonService")
 public class RedissonService {
 

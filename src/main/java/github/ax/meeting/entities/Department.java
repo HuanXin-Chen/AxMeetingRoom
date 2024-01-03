@@ -1,5 +1,6 @@
 package github.ax.meeting.entities;
 
+//部门实体
 public class Department {
 
     private Integer deptId;
