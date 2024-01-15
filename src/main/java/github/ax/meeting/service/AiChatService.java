@@ -38,8 +38,6 @@ public class AiChatService {
     @Autowired
     private RoomMapper roomMapper;
 
-
-    @Async
     public CompletableFuture<String> completions( ) throws InterruptedException, ExecutionException {
 
         List<MeetingRecord> meetingRecords = meetingRecordMapper.selectByConditionFree(new Date(System.currentTimeMillis()));

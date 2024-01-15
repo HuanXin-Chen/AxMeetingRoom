@@ -27,7 +27,6 @@ public class IntercepterConfig implements WebMvcConfigurer {
         excludePath.add("/static/**");
         excludePath.add("/assets/**");
         excludePath.add("/manager");
-        excludePath.add("/actuator/prometheus");
         excludePath.add("/ai/help");
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
