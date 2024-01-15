@@ -2,7 +2,6 @@ package github.ax.meeting.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import github.ax.meeting.entities.Department;
 import github.ax.meeting.entities.Msg;
 import github.ax.meeting.entities.Room;
 import github.ax.meeting.entities.ShowStatus;
@@ -10,7 +9,6 @@ import github.ax.meeting.mapper.MeetingRecordMapper;
 import github.ax.meeting.mapper.RoomMapper;
 import github.ax.meeting.mapper.ShowStatusMapper;
 import github.ax.meeting.util.Const;
-import github.ax.meeting.util.RedissonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

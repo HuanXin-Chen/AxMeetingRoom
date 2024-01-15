@@ -8,7 +8,6 @@ import github.ax.meeting.mapper.ApplicationRecordMapper;
 import github.ax.meeting.mapper.DepartmentMapper;
 import github.ax.meeting.mapper.MeetingRecordMapper;
 import github.ax.meeting.util.Const;
-import github.ax.meeting.util.RedissonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
