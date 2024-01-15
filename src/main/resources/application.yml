@@ -43,7 +43,7 @@ chatglm:
     config:
       enabled: true
       api-host: https://open.bigmodel.cn/
-      api-secret-key: 
+      api-secret-key:
 
 thread:
   pool:
