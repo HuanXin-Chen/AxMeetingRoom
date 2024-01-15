@@ -6,9 +6,7 @@ import github.ax.meeting.entities.*;
 import github.ax.meeting.mapper.ApplicationRecordMapper;
 import github.ax.meeting.mapper.DepartmentMapper;
 import github.ax.meeting.mapper.RoomMapper;
-import github.ax.meeting.mq.EmailInitListener;
-import github.ax.meeting.mq.EmailSendEvent;
-import github.ax.meeting.mq.EventPublisher;
+import github.ax.meeting.util.EmailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +31,6 @@ public class ApplicationRecordService {
     @Autowired
     private RoomMapper roomMapper;
 
-    @Autowired
-    private EventPublisher eventPublisher;
 
     //提交申请
     public Msg addApply(Map<String, Object> para, Date applyDate, Integer applySlot) {
@@ -62,7 +58,8 @@ public class ApplicationRecordService {
         map.put("room_no",room_no);
         map.put("time",time);
 
-        eventPublisher.publish("chx-mq-init", EmailSendEvent.create(map));
+        EmailUtils emailUtils = new EmailUtils();
+        emailUtils.sendInitEmail(EmailSendEvent.create(map));
 
         return Msg.success();
     }
@@ -129,8 +126,8 @@ public class ApplicationRecordService {
         map.put("reason",reasonTo);
         map.put("status",status);
 
-        eventPublisher.publish("chx-mq-end", EmailSendEvent.create(map));
-
+        EmailUtils emailUtils = new EmailUtils();
+        emailUtils.sendEndEmail(EmailSendEvent.create(map));
         return size>0?Msg.success():Msg.fault();
     }
 

@@ -31,8 +31,6 @@ public class RoomService {
     @Autowired
     private MeetingRecordMapper meetingRecordMapper;
 
-    @Autowired
-    private RedissonService redissonService;
 
     private Room room ;
     private List<Room> rooms;
@@ -40,11 +38,7 @@ public class RoomService {
     public Msg getRoom(Map<String,Object> para){
         Integer id = Integer.parseInt((String)para.get("roomId"));
         String key = Const.Redis_ROOM + id;
-        Room room = redissonService.getValue(key);
-        if(room == null){
-            room = roomMapper.selectByPrimaryKey(id);
-            redissonService.setValue(key,room);
-        }
+        Room room = room = roomMapper.selectByPrimaryKey(id);
         Map<String ,Object> map = new HashMap<>();
         map.put("result",room);
         return Msg.success().add(map);
@@ -70,8 +64,6 @@ public class RoomService {
         Integer id = (Integer)para.get("roomId");
 
         String key = Const.Redis_ROOM+id;
-        Room room = redissonService.getValue(key);
-        if(room!=null) redissonService.deleteValue(key);
 
         String no=null;
         Integer size=null;
@@ -102,8 +94,6 @@ public class RoomService {
         Integer id = (Integer)para.get("roomId");
 
         String key = Const.Redis_ROOM+id;
-        Room room = redissonService.getValue(key);
-        if(room!=null) redissonService.deleteValue(key);
 
         int num = roomMapper.deleteByPrimaryKey(id);
         showStatusMapper.deleteByPrimaryKey(id);

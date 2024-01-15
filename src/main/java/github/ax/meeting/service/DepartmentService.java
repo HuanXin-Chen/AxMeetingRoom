@@ -30,18 +30,12 @@ public class DepartmentService {
     @Autowired
     private ApplicationRecordMapper applicationRecordMapper;
 
-    @Autowired
-    private RedissonService redissonService;
 
 
     public Msg getDept(Map<String,Object> para) {
         Integer id = Integer.parseInt((String)para.get("deptId")) ;
         String key = Const.Redis_DEPT + id;
-        Department department = redissonService.getValue(key);
-        if(department == null){
-            department = departmentMapper.selectByPrimaryKey(id);
-            redissonService.setValue(key,department);
-        }
+        Department department = departmentMapper.selectByPrimaryKey(id);
         Map<String ,Object> map = new HashMap<>();
         map.put("result",department);
         return department!=null?Msg.success().add(map):Msg.fault();
@@ -68,8 +62,7 @@ public class DepartmentService {
         Integer id = (Integer)para.get("deptId");
 
         String key = Const.Redis_DEPT+id;
-        Department department = redissonService.getValue(key);
-        if(department!=null) redissonService.deleteValue(key);
+
 
         String deptName = null;
         String deptPhone = null;
@@ -83,7 +76,7 @@ public class DepartmentService {
             deptNo = (String)para.get("deptNo");
         if(para.containsKey("deptPassword"))
             deptPassword = (String)para.get("deptPassword");
-        department = new Department(deptName,deptPhone,deptNo,deptPassword);
+        Department department = new Department(deptName,deptPhone,deptNo,deptPassword);
         department.setDeptId(id);
         int num = departmentMapper.updateByPrimaryKey(department);
         return num>0?Msg.success():Msg.fault();
@@ -103,8 +96,6 @@ public class DepartmentService {
         Integer id = (Integer)para.get("deptId");
 
         String key = Const.Redis_DEPT+id;
-        Department department = redissonService.getValue(key);
-        if(department!=null) redissonService.deleteValue(key);
 
         int num = departmentMapper.deleteByPrimaryKey(id);
         applicationRecordMapper.deleteByDeptId(id);

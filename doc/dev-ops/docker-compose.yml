@@ -2,6 +2,9 @@
 # 执行脚本；docker-compose -f docker-compose.yml up -d
 # 拷贝配置；docker container cp grafana:/etc/grafana/ ./docs/dev-ops/
 version: '3.9'
+networks:
+  meeting:
+    driver: bridge
 services:
   mysql:
     image: mysql:5.7
@@ -22,7 +25,6 @@ services:
       - ./sql:/docker-entrypoint-initdb.d
     volumes_from:
       - mysql-job-dbdata
-
   # 自动加载数据
   mysql-job-dbdata:
     image: alpine:3.18.2
@@ -87,3 +89,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker/volumes:/var/lib/docker/volumes
+  axmeetingroom:
+    image: axmeetingroom:latest
+    container_name: axmeetingroom
+    ports:
+      - 8080:8080
+
