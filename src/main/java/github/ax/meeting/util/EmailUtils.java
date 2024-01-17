@@ -4,6 +4,7 @@ import github.ax.meeting.entities.EmailSendEvent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
  * @date: 2024-01-15
  * @Copyright： 公众号：阿新的杂记
  */
+@Component
 public class EmailUtils {
 
     @Resource

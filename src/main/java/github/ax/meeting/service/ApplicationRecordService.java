@@ -10,6 +10,7 @@ import github.ax.meeting.util.EmailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,9 @@ import java.util.Map;
 // 审核层服务
 @Service
 public class ApplicationRecordService {
+
+    @Resource
+    EmailUtils emailUtils;
 
     @Autowired
     private DepartmentService departmentService;
@@ -58,7 +62,6 @@ public class ApplicationRecordService {
         map.put("room_no",room_no);
         map.put("time",time);
 
-        EmailUtils emailUtils = new EmailUtils();
         emailUtils.sendInitEmail(EmailSendEvent.create(map));
 
         return Msg.success();
@@ -126,7 +129,6 @@ public class ApplicationRecordService {
         map.put("reason",reasonTo);
         map.put("status",status);
 
-        EmailUtils emailUtils = new EmailUtils();
         emailUtils.sendEndEmail(EmailSendEvent.create(map));
         return size>0?Msg.success():Msg.fault();
     }
